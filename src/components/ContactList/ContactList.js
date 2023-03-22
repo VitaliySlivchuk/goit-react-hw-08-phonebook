@@ -1,33 +1,41 @@
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
+
+import ContactsItem from 'components/ContactsItem';
+
+import { useSelector } from 'react-redux';
+import { getContacts, getValue } from 'redux/selectors';
 
 import css from '../Form/Form.module.css';
 
-export const ContactList = ({ filterContacts, onDelete }) => {
+const filterContacts = (items, value) => {
+  const lowCaseFilter = value.toLowerCase();
+  return items.filter(el => el.name.toLowerCase().includes(lowCaseFilter));
+};
+
+export const ContactList = () => {
+  const contacts = useSelector(getContacts);
+  const value = useSelector(getValue);
+
+  const filteredContacts = filterContacts(contacts, value);
+
   return (
     <ul className={css.ul}>
-      {filterContacts.map(({ id, name, number }) => (
-        <li key={id} className={css.liitem}>
-          <div>
-            <span>{name}: </span>
-            <span>{number}</span>
-          </div>
-
-          <button onClick={() => onDelete(name)} className={css.itembtn}>
-            Delete
-          </button>
+      {filteredContacts.map(contact => (
+        <li key={contact.id}>
+          <ContactsItem contact={contact} />
         </li>
       ))}
     </ul>
   );
 };
 
-ContactList.propTypes = {
-  filterContacts: PropTypes.arrayOf(
-    PropTypes.exact({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
-    })
-  ).isRequired,
-  onDelete: PropTypes.func.isRequired,
-};
+// ContactList.propTypes = {
+//   filterContacts: PropTypes.arrayOf(
+//     PropTypes.exact({
+//       id: PropTypes.string.isRequired,
+//       name: PropTypes.string.isRequired,
+//       number: PropTypes.string.isRequired,
+//     })
+//   ).isRequired,
+//   onDelete: PropTypes.func.isRequired,
+// };
