@@ -30,9 +30,6 @@ const contactsSlice = createSlice({
       reducer(state, action) {
         return state.filter(el => el.id !== action.payload);
       },
-      prepare(id) {
-        return { payload: { id } };
-      },
     },
   },
 });

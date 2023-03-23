@@ -1,7 +1,7 @@
 // import PropTypes from 'prop-types';
 
 import { useDispatch } from 'react-redux';
-import { findContact } from 'redux/actions';
+import { findContact } from 'redux/filterSlice';
 import css from '../Form/Form.module.css';
 
 export const Filter = () => {
