@@ -1,25 +1,30 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from 'redux/contactsSlice';
-import { getContacts } from 'redux/selectors';
+import { addContact } from 'redux/operations';
+import { selectContacts } from 'redux/selectors';
 
 import { toast } from 'react-toastify';
 
 import css from './Form.module.css';
 
 export const Form = () => {
-  const contacts = useSelector(getContacts);
   const dispatch = useDispatch();
+  const contacts = useSelector(selectContacts);
 
   const handleSubmit = e => {
     e.preventDefault();
     const name = e.target.elements.name.value;
     const number = e.target.elements.number.value;
-    const findSameName = contacts.some(el => el.name?.includes(name));
+
+    const findSameName = contacts.find(
+      el => el.name.toLowerCase() === name.toLowerCase()
+    );
     if (findSameName) {
       e.target.reset();
       return toast.error(`${name} is already in contacts`);
     }
-    dispatch(addContact({ name, number }));
+    const contact = { name, number };
+    // dispatch(addContact({ name, number }));
+    dispatch(addContact(contact));
     e.target.reset();
   };
 

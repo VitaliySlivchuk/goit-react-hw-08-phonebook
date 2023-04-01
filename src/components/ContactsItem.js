@@ -2,13 +2,12 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 
 import css from '../components/Form/Form.module.css';
-// import { deleteContact } from 'redux/actions';
-import { deleteContact } from 'redux/contactsSlice';
+// import { deleteContact } from 'redux/contactsSlice';
 
 const ContactsItem = ({ contact: { id, name, number } }) => {
   const dispatch = useDispatch();
 
-  const handlerDeleteContact = () => dispatch(deleteContact(id));
+  // const handlerDeleteContact = () => dispatch(deleteContact(id));
 
   return (
     <div className={css.liitem}>
@@ -17,9 +16,9 @@ const ContactsItem = ({ contact: { id, name, number } }) => {
         <span>{number}</span>
       </div>
 
-      <button className={css.itembtn} onClick={handlerDeleteContact}>
+      {/* <button className={css.itembtn} onClick={handlerDeleteContact}>
         Delete
-      </button>
+      </button> */}
     </div>
   );
 };

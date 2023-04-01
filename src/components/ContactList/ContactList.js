@@ -1,22 +1,26 @@
-// import PropTypes from 'prop-types';
-
 import ContactsItem from 'components/ContactsItem';
 
 import { useSelector } from 'react-redux';
-import { getContacts, getValue } from 'redux/selectors';
-
+//selectors
+import {
+  selectContacts,
+  selectFilteredContacts,
+  selectValue,
+} from 'redux/selectors';
+//styles
 import css from '../Form/Form.module.css';
 
-const filterContacts = (items, value) => {
-  const lowCaseFilter = value.toLowerCase();
-  return items.filter(el => el.name.toLowerCase().includes(lowCaseFilter));
-};
+// const filterContacts = (items, value) => {
+//   const lowCaseFilter = value.toLowerCase();
+//   return items.filter(el => el.name.toLowerCase().includes(lowCaseFilter));
+// };
 
 export const ContactList = () => {
-  const contacts = useSelector(getContacts);
-  const value = useSelector(getValue);
+  const filteredContacts = useSelector(selectFilteredContacts);
+  // const contacts = useSelector(selectContacts);
+  // const value = useSelector(selectValue);
 
-  const filteredContacts = filterContacts(contacts, value);
+  // const filteredContacts = filterContacts(contacts, value);
 
   return (
     <ul className={css.ul}>
