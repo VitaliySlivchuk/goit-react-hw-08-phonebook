@@ -1,29 +1,18 @@
 import { createSelector } from '@reduxjs/toolkit';
 
+//атомарні
 export const selectContacts = state => state.contacts.items;
 export const selectIsLoading = state => state.contacts.isLoading;
 export const selectError = state => state.contacts.error;
-// export const selectId = state => state.contacts.id;
+export const selectContactId = state => state.contacts.items.id;
 export const selectValue = state => state.filter.value;
-
-// const filterContacts = (items, value) => {
-//   const lowCaseFilter = value.toLowerCase();
-//   return items.filter(el => el.name.toLowerCase().includes(lowCaseFilter));
-// };
-
-// export const selectFilteredContacts = createSelector(
-//   [selectContacts, selectValue],
-//   (contacts, value) => {
-//     const lowCaseFilter = value.toLowerCase();
-//     return contacts.filter(({ name }) =>
-//       name.toLowerCase().includes(lowCaseFilter)
-//     );
-//   }
-// );
+//складові
 export const selectFilteredContacts = createSelector(
   [selectContacts, selectValue],
   (contacts, value) => {
     const lowCaseFilter = value.toLowerCase();
-    return contacts.filter(contact => contact);
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(lowCaseFilter)
+    );
   }
 );

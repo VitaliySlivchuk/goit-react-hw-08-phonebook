@@ -22,7 +22,7 @@ export const App = () => {
   useEffect(() => {
     dispatch(fetchContacts());
   }, [dispatch]);
-  console.log('ololo');
+
   return (
     <div className={css.app}>
       {isLoading && !error && <Loader />}

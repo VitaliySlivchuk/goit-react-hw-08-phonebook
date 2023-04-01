@@ -23,7 +23,6 @@ export const Form = () => {
       return toast.error(`${name} is already in contacts`);
     }
     const contact = { name, number };
-    // dispatch(addContact({ name, number }));
     dispatch(addContact(contact));
     e.target.reset();
   };
