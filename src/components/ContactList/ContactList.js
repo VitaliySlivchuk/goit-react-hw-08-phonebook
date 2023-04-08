@@ -1,8 +1,8 @@
-import ContactsItem from 'components/ContactsItem';
+import ContactsItem from 'components/ContactsItem/ContactsItem';
 
 import { useSelector } from 'react-redux';
 //selectors
-import { selectFilteredContacts } from 'redux/selectors';
+import { selectFilteredContacts } from 'redux/contacts/selectors';
 //styles
 import css from '../Form/Form.module.css';
 

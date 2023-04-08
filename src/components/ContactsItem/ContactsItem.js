@@ -1,8 +1,8 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { deleteContact } from 'redux/operations';
+import { deleteContact } from 'redux/contacts/operations';
 
-import css from '../components/Form/Form.module.css';
+import css from 'components/Form/Form.module.css';
 
 const ContactsItem = ({ contact: { id, name, number } }) => {
   const dispatch = useDispatch();

@@ -1,7 +1,5 @@
-// import PropTypes from 'prop-types';
-
 import { useDispatch } from 'react-redux';
-import { findContact } from 'redux/filterSlice';
+import { findContact } from 'redux/contacts/filterSlice';
 import css from '../Form/Form.module.css';
 
 export const Filter = () => {
@@ -21,8 +19,3 @@ export const Filter = () => {
     </div>
   );
 };
-
-// Filter.propTypes = {
-//   filter: PropTypes.string.isRequired,
-//   onChangeFilter: PropTypes.func.isRequired,
-// };
