@@ -1,11 +1,17 @@
 import { NavLink } from 'react-router-dom';
 import HomeIcon from '@mui/icons-material/Home';
 import { useAuth } from 'hooks/useAuth';
+import { Typography } from '@mui/material';
 
 const Navigation = () => {
-  const { isLoading } = useAuth();
+  const { isLoggedIn } = useAuth();
   return (
-    <nav>
+    <nav
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+      }}
+    >
       <NavLink to="/">
         <HomeIcon
           sx={{
@@ -16,7 +22,14 @@ const Navigation = () => {
           }}
         />
       </NavLink>
-      {isLoading && <NavLink to={'/tasks'}>Tasks</NavLink>}
+      {isLoggedIn && (
+        <NavLink
+          to={'/contacts'}
+          style={{ color: '#fff', textDecoration: 'none' }}
+        >
+          <Typography>Contacts</Typography>
+        </NavLink>
+      )}
     </nav>
   );
 };
