@@ -27,7 +27,7 @@ const Navigation = () => {
           to={'/contacts'}
           style={{ color: '#fff', textDecoration: 'none' }}
         >
-          <Typography>Contacts</Typography>
+          <Typography sx={{ marginLeft: 8 }}>Contacts</Typography>
         </NavLink>
       )}
     </nav>

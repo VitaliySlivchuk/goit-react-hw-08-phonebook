@@ -1,21 +1,28 @@
 import { useDispatch } from 'react-redux';
 import { findContact } from 'redux/contacts/filterSlice';
-import css from '../Form/Form.module.css';
+import { Container, Box, TextField } from '@mui/material';
 
 export const Filter = () => {
   const dispatch = useDispatch();
-  const handleFilterContacts = e => {
+
+  const handleChange = e => {
     const value = e.target.value;
     dispatch(findContact(value));
   };
   return (
-    <div className={css.contacts}>
-      <label>Find contacts by name</label>
-      <input
-        type="text"
-        className={css.input}
-        onChange={handleFilterContacts}
-      ></input>
-    </div>
+    <Container component="main" maxWidth="xs">
+      <Box>
+        <Box component="form" onChange={handleChange} noValidate sx={{ mt: 1 }}>
+          <TextField
+            margin="normal"
+            fullWidth
+            id="filter"
+            label="Filter contacts"
+            name="filter"
+            autoFocus
+          />
+        </Box>
+      </Box>
+    </Container>
   );
 };

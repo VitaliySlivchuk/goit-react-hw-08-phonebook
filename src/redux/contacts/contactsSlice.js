@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import {
   addContact,
   deleteContact,
+  editContact,
   fetchContacts,
 } from 'redux/contacts/operations';
 
@@ -21,27 +22,40 @@ const contactsSlice = createSlice({
     isLoading: false,
     error: null,
   },
-  extraReducers: {
-    //fetch
-    [fetchContacts.pending]: hendlePanding,
-    [fetchContacts.fulfilled](state, action) {
-      state.isLoading = false;
-      state.items = action.payload;
-    },
-    [fetchContacts.rejected]: hendleRejected,
-    //add
-    [addContact.pending]: hendlePanding,
-    [addContact.fulfilled](state, action) {
-      state.isLoading = false;
-      state.items.push(action.payload);
-    },
-    [addContact.rejected]: hendleRejected,
-    //delete
-    [deleteContact]: hendlePanding,
-    [deleteContact.fulfilled](state, action) {
-      state.isLoading = false;
-      state.items = state.items.filter(item => item.id !== action.payload.id);
-    },
+  extraReducers: builder => {
+    builder
+      //fetch
+      .addCase(fetchContacts.pending, hendlePanding)
+      .addCase(fetchContacts.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.items = action.payload;
+      })
+      .addCase(fetchContacts.rejected, hendleRejected)
+
+      //add
+
+      .addCase(addContact.pending, hendlePanding)
+      .addCase(addContact.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.items.push(action.payload);
+      })
+      .addCase(addContact.rejected, hendleRejected)
+
+      //delete
+      .addCase(deleteContact.pending, hendlePanding)
+      .addCase(deleteContact.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.items = state.items.filter(item => item.id !== action.payload.id);
+      })
+
+      //edit
+      .addCase(editContact.pending, hendlePanding)
+      .addCase(editContact.fulfilled, (state, action) => {
+        state.isLoading = false;
+        const { id, name, number } = action.payload;
+        const index = state.items.findIndex(item => item.id === id);
+        state.items[index] = { ...state.items[index], name, number };
+      });
   },
 });
 

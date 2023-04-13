@@ -1,18 +1,30 @@
-import { Box } from '@mui/material';
-import React from 'react';
+import { Box, Button } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 
 const AuthNav = () => {
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: 4,
+      }}
+    >
       <Box>
-        <NavLink to={'/register'} style={{ ...styles, marginRight: 20 }}>
-          Register
+        <NavLink to={'/register'} style={{ ...styles }}>
+          <Button variant="outlined" sx={button}>
+            Register
+          </Button>
         </NavLink>
       </Box>
-      <NavLink to={'/login'} style={styles}>
-        Log in
-      </NavLink>
+      <Box>
+        <NavLink to={'/login'} style={styles}>
+          <Button variant="outlined" sx={button}>
+            Log in
+          </Button>
+        </NavLink>
+      </Box>
     </Box>
   );
 };
@@ -25,4 +37,9 @@ const styles = {
   '&:hover': {
     color: '#000',
   },
+};
+const button = {
+  color: 'white',
+  borderColor: 'white',
+  '&:hover': { backgroundColor: '#cfd8dc', color: '#000' },
 };

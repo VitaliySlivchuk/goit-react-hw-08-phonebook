@@ -1,61 +1,87 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from 'redux/contacts/operations';
 import { selectContacts } from 'redux/contacts/selectors';
-
-import { toast } from 'react-toastify';
-
-import css from '../Form/Form.module.css';
+import { Container, Box, TextField, Button } from '@mui/material';
+import { useState } from 'react';
+import { SnakBar } from 'components/SnackBar/SnakBar';
 
 export const Form = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(selectContacts);
 
+  const [isOpen, setIsOpen] = useState(false);
+  const [sneackText, setSneakText] = useState('');
+
   const handleSubmit = e => {
     e.preventDefault();
-    const name = e.target.elements.name.value;
-    const number = e.target.elements.number.value;
+    const data = new FormData(e.currentTarget);
+    const name = data.get('name');
+    const number = data.get('number');
 
     const findSameName = contacts.find(
       el => el.name.toLowerCase() === name.toLowerCase()
     );
     if (findSameName) {
       e.target.reset();
-      return toast.error(`${name} is already in contacts`);
+      setSneakText('This contact is on the phonebook');
+      setIsOpen(true);
+      return;
     }
-    const contact = { name, number };
-    dispatch(addContact(contact));
+    if (name.trim() === '' || number.trim() === '') {
+      setSneakText('Fill contact name or contact number field');
+      setIsOpen(true);
+      return;
+    }
+
+    dispatch(
+      addContact({
+        name,
+        number,
+      })
+    );
     e.target.reset();
   };
-
   return (
-    <form className={css.form} onSubmit={handleSubmit}>
-      <div className={css.wrap}>
-        <label>{'Name'}</label>
-        <input
-          type="text"
-          name="name"
-          // pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-          title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-          required
-          autoComplete="off"
-        />
-      </div>
-
-      <div className={css.wrap}>
-        <label>{'Number'}</label>
-        <input
-          type="tel"
-          name="number"
-          // pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-          title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-          required
-          autoComplete="off"
-        />
-      </div>
-
-      <button type="submit" className={css.button}>
-        Add contact
-      </button>
-    </form>
+    <Container component="main" maxWidth="xs">
+      <SnakBar
+        isShowSnak={isOpen}
+        setIsShowSnak={setIsOpen}
+        message={sneackText}
+      />
+      <Box
+        sx={{
+          marginTop: 8,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <TextField
+            margin="normal"
+            fullWidth
+            id="name"
+            label="Contact name"
+            name="name"
+            autoFocus
+          />
+          <TextField
+            margin="normal"
+            fullWidth
+            name="number"
+            label="Contact number"
+            id="number"
+          />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Add Contact
+          </Button>
+        </Box>
+      </Box>
+    </Container>
   );
 };

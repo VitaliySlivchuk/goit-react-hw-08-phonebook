@@ -2,7 +2,7 @@ import { Container, Typography, Box, TextField, Button } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { logIn } from 'redux/auth/operations';
 
-const Login = () => {
+export default function Login() {
   const dispatch = useDispatch();
 
   const handleSubmit = event => {
@@ -61,6 +61,4 @@ const Login = () => {
       </Box>
     </Container>
   );
-};
-
-export default Login;
+}
