@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectIsLoading, selectError } from 'redux/contacts/selectors';
 import { fetchContacts } from 'redux/contacts/operations';
-import { Box, Container } from '@mui/material';
+import { Container } from '@mui/material';
 
 import { Form } from '../Form/Form';
 import { Filter } from '../Filter/Filter';
